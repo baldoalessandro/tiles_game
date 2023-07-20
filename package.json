@@ -23,6 +23,7 @@
     "vitest": "^0.32.2"
   },
   "dependencies": {
+    "array-shuffle": "^3.0.0",
     "solid-js": "^1.7.6"
   }
 }
