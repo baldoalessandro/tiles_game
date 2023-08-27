@@ -1,7 +1,6 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
-import { generateTiles } from "./tiles";
-
+import { generateTiles, simplifyTiles } from "./tiles";
 
 // The board is made of 5 x 6 tiles
 // NOTE this could be changed but it must be an even number
@@ -33,7 +32,23 @@ export function createGameStateStore() {
     _setState(initialState());
   }
 
-  return { state, reset };
+  function select(tileIdx: number) {
+    if (state.selectedTile !== undefined) {
+      const t1Idx = state.selectedTile;
+      const t2Idx = tileIdx;
+      const t1Curr = state.tiles[t1Idx];
+      const t2Curr = state.tiles[t2Idx];
+
+      const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
+
+      _setState("tiles", t1Idx, t1Next);
+      _setState("tiles", t2Idx, t2Next);
+    }
+
+    _setState({ selectedTile: tileIdx });
+  }
+
+  return { state, reset, select };
 }
 
 /**

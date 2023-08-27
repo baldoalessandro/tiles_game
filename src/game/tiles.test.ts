@@ -1,4 +1,9 @@
-import { generateTiles, createRandomLayer, generateBitmasks } from "./tiles";
+import {
+  generateTiles,
+  createRandomLayer,
+  generateBitmasks,
+  simplifyTiles,
+} from "./tiles";
 
 describe("generateTiles", () => {
   it("can only generate an even number of tiles", () => {
@@ -63,11 +68,11 @@ describe("generateBitmasks", () => {
     const masks = generateBitmasks(3, 4);
 
     const expected = [
-      '000000000111',
-      '000000111000',
-      '000111000000',
-      '111000000000'
-    ].map((s) => Number.parseInt(s.padStart(32, '0'),2));
+      "000000000111",
+      "000000111000",
+      "000111000000",
+      "111000000000",
+    ].map((s) => Number.parseInt(s.padStart(32, "0"), 2));
 
     expect(masks).toEqual(expected);
   });
@@ -98,6 +103,24 @@ describe("createRandomLayer", () => {
 
     expect(res.sort()).toEqual([
       1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3,
+    ]);
+  });
+});
+
+describe("simplfyTiles", () => {
+  const bitmaks = [0b000_000_111, 0b000_111_000, 0b111_000_000] as const;
+
+  it("returns [0,0] it the tiles are equals", () => {
+    expect(simplifyTiles(4, 4, bitmaks)).toEqual([0, 0]);
+  });
+
+  it("returns [0,0] it the tiles both 0", () => {
+    expect(simplifyTiles(0, 0, bitmaks)).toEqual([0, 0]);
+  });
+
+  it("removes common layers", () => {
+    expect(simplifyTiles(0b001_011_010, 0b011_011_110, bitmaks)).toEqual([
+      0b001_000_010, 0b011_000_110,
     ]);
   });
 });

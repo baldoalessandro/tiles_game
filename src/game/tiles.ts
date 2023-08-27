@@ -93,3 +93,20 @@ export function createLayer(variations: number, len: number): number[] {
     return (((idx / 2) >> 0) % variations) + 1;
   });
 }
+
+/**
+ * Given two tiles it simplifies them removing the common layers
+ */
+export function simplifyTiles(
+  t1: number,
+  t2: number,
+  bitmasks: readonly number[]
+): readonly [number, number] {
+  const commonLayerMask = ~bitmasks.reduce((acc, mask) => {
+    const tl1 = t1 & mask;
+    const tl2 = t2 & mask;
+    return acc ^ ((tl1 ^ tl2) === 0 ? mask : 0);
+  }, 0);
+
+  return [t1, t2].map((t) => t & commonLayerMask) as [number, number];
+}
