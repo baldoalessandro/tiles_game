@@ -3,6 +3,7 @@ import {
   createRandomLayer,
   generateBitmasks,
   simplifyTiles,
+  getLayersFromTile,
 } from "./tiles";
 
 describe("generateTiles", () => {
@@ -39,15 +40,20 @@ describe("generateTiles", () => {
     expect(res).toEqual(0);
   });
 
-  it("returns all the bitmasks required to access each layer", () => {
+  it("returns the bitmasks and info required to access each layer", () => {
     const nrOfLayer = 4;
     const nrOfVariation = 2;
-    const { bitmasks } = generateTiles(2, nrOfLayer, nrOfVariation);
+    const { bitmasks, bitsPerLayer } = generateTiles(
+      2,
+      nrOfLayer,
+      nrOfVariation
+    );
 
     expect(bitmasks).toHaveLength(nrOfLayer);
 
-    const bitsPerLayer = Math.ceil(Math.log2(nrOfVariation + 1));
-    expect(bitmasks).toEqual(generateBitmasks(bitsPerLayer, nrOfLayer));
+    const expectedBitsPerLayer = Math.ceil(Math.log2(nrOfVariation + 1));
+    expect(bitsPerLayer).toEqual(expectedBitsPerLayer);
+    expect(bitmasks).toEqual(generateBitmasks(expectedBitsPerLayer, nrOfLayer));
   });
 });
 
@@ -122,5 +128,26 @@ describe("simplfyTiles", () => {
     expect(simplifyTiles(0b001_011_010, 0b011_011_110, bitmaks)).toEqual([
       0b001_000_010, 0b011_000_110,
     ]);
+  });
+});
+
+describe("getLayerFromTile", () => {
+  const bitmaks = [0b000_000_111, 0b000_111_000, 0b111_000_000] as const;
+  const bitsPerLayer = 3;
+
+  it("extracts layers from the tile representation", () => {
+    const cases = [
+      [0, [0, 0, 0]],
+      [0b001_001_001, [1, 1, 1]],
+      [0b010_011_100, [4, 3, 2]],
+      [0b011_010_101, [5, 2, 3]],
+      [0b111_000_000, [0, 0, 7]],
+    ] as const;
+    cases.forEach((c) => {
+      const [input, expected] = c;
+      const res = getLayersFromTile(input, bitmaks, bitsPerLayer);
+      expect(res).toEqual(expected);
+
+    })
   });
 });

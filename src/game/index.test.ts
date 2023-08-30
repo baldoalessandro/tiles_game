@@ -40,6 +40,14 @@ describe("GameState", () => {
     });
   });
 
+  it("exposes a getLayers function", () => {
+    createRoot(() => {
+      const { getLayers } = createGameStateStore();
+      const layers = getLayers(0b001_010_011);
+      expect(layers).toEqual([3, 2, 1]);
+    });
+  });
+
   describe("input handling", () => {
     it("selects a tile if no tile was currently selected", () => {
       [0, 4, 12, 29].forEach((tileIdx) => {

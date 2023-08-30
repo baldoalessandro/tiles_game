@@ -1,6 +1,6 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
-import { generateTiles, simplifyTiles } from "./tiles";
+import { generateTiles, getLayersFromTile, simplifyTiles } from "./tiles";
 
 // The board is made of 5 x 6 tiles
 // NOTE this could be changed but it must be an even number
@@ -16,10 +16,12 @@ export interface GameState {
  */
 export function createGameStateStore() {
   let bitmasks: number[];
+  let bitsPerLayer: number;
 
   function initialState() {
-    const { tiles, bitmasks: masks } = generateTiles(NUMBER_OF_TILES, 3, 4);
+    const { tiles, bitmasks: masks, bitsPerLayer: bpl } = generateTiles(NUMBER_OF_TILES, 3, 4);
     bitmasks = masks;
+    bitsPerLayer = bpl;
     return {
       tiles,
       selectedTile: undefined,
@@ -48,7 +50,11 @@ export function createGameStateStore() {
     _setState({ selectedTile: tileIdx });
   }
 
-  return { state, reset, select };
+  function getLayers(tile: number) {
+    return getLayersFromTile(tile, bitmasks, bitsPerLayer);
+  }
+
+  return { state, reset, select, getLayers };
 }
 
 /**

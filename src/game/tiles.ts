@@ -25,7 +25,7 @@ export function generateTiles(
   nrOfTiles: number,
   nrOfLayers: number,
   nrOfVariationPerLayer: number
-): { tiles: number[]; bitmasks: number[] } {
+): { tiles: number[]; bitmasks: number[]; bitsPerLayer: number } {
   assertPositiveInteger(nrOfTiles);
   assertPositiveInteger(nrOfLayers);
   assertPositiveInteger(nrOfVariationPerLayer);
@@ -46,7 +46,7 @@ export function generateTiles(
     )
   ).reduce((acc, layer) => acc.map((v, idx) => (v |= layer[idx])));
 
-  return { tiles, bitmasks };
+  return { tiles, bitmasks, bitsPerLayer };
 }
 
 function ensureTileVariabilityCanFitStorage(
@@ -109,4 +109,15 @@ export function simplifyTiles(
   }, 0);
 
   return [t1, t2].map((t) => t & commonLayerMask) as [number, number];
+}
+
+/**
+ * Get the layers from the tile representation
+ */
+export function getLayersFromTile(
+  tile: number,
+  bitmasks: readonly number[],
+  bitsPerLayer: number
+) {
+  return bitmasks.map((m, idx) => (m & tile) >> (idx * bitsPerLayer));
 }
