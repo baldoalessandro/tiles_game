@@ -1,0 +1,7 @@
+.board {
+  display: grid;
+  grid: repeat(6, 1fr) / repeat(5, 1fr);
+  gap: 1px;
+  background-color: gray;
+  border: 1px solid gray;
+}
