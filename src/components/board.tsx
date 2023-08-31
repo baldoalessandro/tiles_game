@@ -10,7 +10,13 @@ export const Board: Component = () => {
   return (
     <div class={cls.board}>
       <For each={state.tiles}>
-        {(tile, idx) => <Tile tile={tile} idx={idx()} />}
+        {(tile, idx) => (
+          <Tile
+            tile={tile}
+            idx={idx()}
+            selected={state.selectedTile === idx()}
+          />
+        )}
       </For>
     </div>
   );
