@@ -85,6 +85,22 @@ describe("GameState", () => {
           );
         });
       });
+
+      it("doesn't do anything when the curretly selected tile is selected again", () => {
+        [0, 4, 11].forEach((t) => {
+          createRoot(() => {
+            const { state, select } = createGameStateStore();
+            expect(state.selectedTile).toBe(undefined);
+            select(t);
+            expect(state.selectedTile).toEqual(t);
+
+            select(t);
+
+            expect(state.selectedTile).toEqual(t);
+            expect(state.tiles).toEqual(mockTiles);
+          });
+        });
+      });
     });
   });
 });
