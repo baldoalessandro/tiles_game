@@ -38,13 +38,12 @@ export function createGameStateStore() {
     if (state.selectedTile !== undefined) {
       const t1Idx = state.selectedTile;
       const t2Idx = tileIdx;
-
-      if (t1Idx === t2Idx) {
-        return;
-      }
-
       const t1Curr = state.tiles[t1Idx];
       const t2Curr = state.tiles[t2Idx];
+
+      if (t1Idx === t2Idx || t2Curr === 0) {
+        return;
+      }
 
       const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
 

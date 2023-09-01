@@ -61,6 +61,22 @@ describe("GameState", () => {
       });
     });
 
+    it("doesn't change selection when selecting an empty tile", () => {
+      createRoot((dispose) => {
+        const { state, select } = createGameStateStore();
+        expect(state.selectedTile).toBe(undefined);
+        // We clear the first two tiles
+        select(0);
+        select(1);
+        expect(state.tiles[0]).toEqual(0);
+        expect(state.selectedTile).toEqual(1);
+
+        select(0);
+
+        expect(state.selectedTile).toEqual(1);
+      });
+    });
+
     describe(" with a currently selected tile", () => {
       it("updates the tiles when there is a match", () => {
         createRoot(() => {
