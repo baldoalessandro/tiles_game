@@ -1,20 +1,46 @@
 import { vi } from "vitest";
 import { createRoot } from "solid-js";
 import { NUMBER_OF_TILES, createGameStateStore } from "./";
+import { generateTiles } from "./tiles";
 
-vi.mock("array-shuffle", () => ({
-  // We mock `arrayShuffle` used in the "./tiles" module with the identity fn
-  default: (x: unknown) => x,
+// Mock tiles generation
+const { mockTiles, mockBitmaps } = vi.hoisted(() => ({
+  mockTiles: [
+    0b0_010_100_010, 0b0_001_011_011, 0b0_011_100_011, 0b0_011_011_001,
+    0b0_011_100_011, 0b0_001_011_100, 0b0_100_011_010, 0b0_001_011_100,
+    0b0_001_001_001, 0b0_010_010_001, 0b0_001_001_100, 0b0_011_010_001,
+    0b0_100_100_010, 0b0_100_001_100, 0b0_011_010_010, 0b0_011_001_001,
+    0b0_001_001_011, 0b0_100_010_011, 0b0_001_010_010, 0b0_010_011_001,
+    0b0_010_011_100, 0b0_001_010_010, 0b0_100_010_011, 0b0_010_100_011,
+    0b0_010_100_001, 0b0_100_001_001, 0b0_011_011_011, 0b0_010_010_010,
+    0b0_011_001_010, 0b0_010_001_100,
+  ],
+  mockBitmaps: [0b0_000_000_111, 0b0_000_111_000, 0b0_111_000_000],
 }));
 
-const mockTiles = [
-  0b001_001_001, 0b001_001_001, 0b010_010_010, 0b010_010_010, 0b011_011_011,
-  0b011_011_011, 0b100_100_100, 0b100_100_100, 0b001_001_001, 0b001_001_001,
-  0b010_010_010, 0b010_010_010, 0b011_011_011, 0b011_011_011, 0b100_100_100,
-  0b100_100_100, 0b001_001_001, 0b001_001_001, 0b010_010_010, 0b010_010_010,
-  0b011_011_011, 0b011_011_011, 0b100_100_100, 0b100_100_100, 0b001_001_001,
-  0b001_001_001, 0b010_010_010, 0b010_010_010, 0b011_011_011, 0b011_011_011,
-];
+vi.mock("./tiles", async (original) => {
+  const mod: typeof import("./tiles") = await original();
+  return {
+    ...mod,
+    generateTiles: vi
+      .fn<
+        Parameters<typeof mod.generateTiles>,
+        ReturnType<typeof mod.generateTiles>
+      >()
+      .mockImplementation((nrOfTiles, nrOfLayers, nrOfVariationPerLayer) => {
+        // Check if the mocked version is good enough
+        expect(nrOfTiles).toEqual(mockTiles.length);
+        expect(nrOfLayers).toEqual(mockBitmaps.length);
+        expect(nrOfVariationPerLayer).toEqual(4);
+
+        return {
+          tiles: [...mockTiles],
+          bitmasks: [...mockBitmaps],
+          bitsPerLayer: 3,
+        };
+      }),
+  };
+});
 
 describe("GameState", () => {
   it("init with a new game", () => {
@@ -62,15 +88,19 @@ describe("GameState", () => {
     });
 
     it("doesn't change selection when selecting an empty tile", () => {
-      createRoot((dispose) => {
+      // Set the first tile to 0 to have an empty tile
+      vi.mocked(generateTiles).mockReturnValueOnce({
+        tiles: [0, ...mockTiles.slice(1)],
+        bitmasks: mockBitmaps,
+        bitsPerLayer: 3,
+      });
+      createRoot(() => {
         const { state, select } = createGameStateStore();
         expect(state.selectedTile).toBe(undefined);
-        // We clear the first two tiles
-        select(0);
         select(1);
-        expect(state.tiles[0]).toEqual(0);
         expect(state.selectedTile).toEqual(1);
 
+        expect(state.tiles[0]).toEqual(0);
         select(0);
 
         expect(state.selectedTile).toEqual(1);
@@ -82,18 +112,19 @@ describe("GameState", () => {
         createRoot(() => {
           const { state, select } = createGameStateStore();
 
-          expect(state.tiles[0]).toEqual(state.tiles[1]);
           expect(state.selectedTile).toBe(undefined);
           select(0);
           expect(state.selectedTile).toEqual(0);
+          expect(state.tiles[0]).toEqual(0b0_010_100_010);
 
-          select(1);
-          expect(state.selectedTile).toEqual(1);
+          expect(state.tiles[2]).toEqual(0b0_011_100_011);
+          select(2);
+          expect(state.selectedTile).toEqual(2);
 
-          expect(state.tiles[0]).toEqual(0b000_000_000);
-          expect(state.tiles[1]).toEqual(0b000_000_000);
+          expect(state.tiles[0]).toEqual(0b0_010_000_010);
+          expect(state.tiles[2]).toEqual(0b0_011_000_011);
 
-          const expectedChangedTilesIdxs = [0, 1];
+          const expectedChangedTilesIdxs = [0, 2];
           expect(
             state.tiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i))
           ).toEqual(
