@@ -5,3 +5,33 @@
   background-color: gray;
   border: 1px solid gray;
 }
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.score > p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.score > p:nth-child(2) {
+  align-items: flex-end;
+}
+
+.score > p > span {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-weight: 700;
+}
+
+.score > p > output {
+  width: fit-content;
+  display: block;
+
+  font-size: 3rem;
+  font-weight: 800;
+}

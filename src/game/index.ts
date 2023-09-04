@@ -9,6 +9,8 @@ export const NUMBER_OF_TILES = 30 as const;
 export interface GameState {
   tiles: number[];
   selectedTile?: number;
+  currentChain: number;
+  highestChain: number;
 }
 
 /**
@@ -18,13 +20,15 @@ export function createGameStateStore() {
   let bitmasks: number[];
   let bitsPerLayer: number;
 
-  function initialState() {
+  function initialState(): GameState {
     const { tiles, bitmasks: masks, bitsPerLayer: bpl } = generateTiles(NUMBER_OF_TILES, 3, 4);
     bitmasks = masks;
     bitsPerLayer = bpl;
     return {
       tiles,
       selectedTile: undefined,
+      currentChain: 0,
+      highestChain: 0,
     };
   }
 
