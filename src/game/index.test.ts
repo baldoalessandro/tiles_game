@@ -150,4 +150,71 @@ describe("GameState", () => {
       });
     });
   });
+
+  describe("score", () => {
+    it("increments current score on valid move", () => {
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.currentChain).toEqual(0);
+
+        select(0);
+        select(2);
+
+        expect(state.currentChain).toEqual(1);
+      });
+    });
+
+    it("increments highest score on valid move", () => {
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.currentChain).toEqual(0);
+
+        select(0);
+        select(2);
+
+        expect(state.currentChain).toEqual(1);
+        expect(state.highestChain).toEqual(1);
+      });
+    });
+
+    it("resets only the current score on error", () => {
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.currentChain).toEqual(0);
+
+        select(0);
+        select(2);
+        expect(state.currentChain).toEqual(1);
+        expect(state.highestChain).toEqual(1);
+
+        select(0);
+        expect(state.currentChain).toEqual(0);
+        expect(state.highestChain).toEqual(1);
+      });
+    });
+
+    it("update the highest score when is beated", () => {
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.currentChain).toEqual(0);
+
+        select(0);
+        select(2);
+        expect(state.currentChain).toEqual(1);
+        expect(state.highestChain).toEqual(1);
+
+        select(0);
+        expect(state.currentChain).toEqual(0);
+        expect(state.highestChain).toEqual(1);
+
+        select(6);
+        expect(state.currentChain).toEqual(1);
+        expect(state.highestChain).toEqual(1);
+
+        select(3);
+        expect(state.currentChain).toEqual(2);
+        expect(state.highestChain).toEqual(2);
+      });
+    });
+  });
 });

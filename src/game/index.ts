@@ -1,6 +1,12 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
-import { generateTiles, getLayersFromTile, simplifyTiles } from "./tiles";
+import {
+  generateTiles,
+  getLayersFromTile,
+  isInvalidMove,
+  moveWasGood,
+  simplifyTiles,
+} from "./tiles";
 
 // The board is made of 5 x 6 tiles
 // NOTE this could be changed but it must be an even number
@@ -21,7 +27,11 @@ export function createGameStateStore() {
   let bitsPerLayer: number;
 
   function initialState(): GameState {
-    const { tiles, bitmasks: masks, bitsPerLayer: bpl } = generateTiles(NUMBER_OF_TILES, 3, 4);
+    const {
+      tiles,
+      bitmasks: masks,
+      bitsPerLayer: bpl,
+    } = generateTiles(NUMBER_OF_TILES, 3, 4);
     bitmasks = masks;
     bitsPerLayer = bpl;
     return {
@@ -45,11 +55,23 @@ export function createGameStateStore() {
       const t1Curr = state.tiles[t1Idx];
       const t2Curr = state.tiles[t2Idx];
 
-      if (t1Idx === t2Idx || t2Curr === 0) {
+      if (isInvalidMove(t1Idx, t2Idx, t2Curr)) {
         return;
       }
 
       const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
+
+      if (moveWasGood(t1Curr, t1Next)) {
+        _setState((state) => ({
+          currentChain: state.currentChain + 1,
+          highestChain:
+            state.currentChain >= state.highestChain
+              ? state.highestChain + 1
+              : state.highestChain,
+        }));
+      } else {
+        _setState("currentChain", 0);
+      }
 
       _setState("tiles", t1Idx, t1Next);
       _setState("tiles", t2Idx, t2Next);

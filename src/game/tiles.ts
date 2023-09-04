@@ -121,3 +121,24 @@ export function getLayersFromTile(
 ) {
   return bitmasks.map((m, idx) => (m & tile) >> (idx * bitsPerLayer));
 }
+
+/**
+ * Check if a move is invalid or not
+ */
+export function isInvalidMove(
+  tile1Idx: number,
+  tile2Idx: number,
+  tile2Value: number
+): boolean {
+  return tile1Idx === tile2Idx || tile2Value === 0;
+}
+
+/**
+ * Check if a move produced a match
+ */
+export function moveWasGood(
+  oldTileValue: number,
+  newTileValue: number
+): boolean {
+  return oldTileValue !== newTileValue;
+}
