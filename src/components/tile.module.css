@@ -7,7 +7,13 @@
 
   appearance: none;
   border: none;
-  background: white;
+}
+
+.tile:nth-child(odd) {
+  background-color: var(--tile-bg-1-color, gray);
+}
+.tile:nth-child(even) {
+  background-color: var(--tile-bg-2-color, whitesmoke);
 }
 
 .selected {

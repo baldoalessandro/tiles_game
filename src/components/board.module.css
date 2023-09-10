@@ -1,15 +1,28 @@
 .board {
+  /* THEME */
+  --bg-color: silver;
+  --tile-bg-1-color: gray;
+  --tile-bg-2-color: whitesmoke;
+
+  background-color: var(--bg-color, silver);
+
+  box-sizing: border-box;
+
+  height: 100vh;
+  padding: 0.7rem;
+  padding-top: 2rem;
+  margin: 0;
+}
+
+.tiles {
   display: grid;
   grid: repeat(6, 1fr) / repeat(5, 1fr);
-  gap: 1px;
-  background-color: gray;
-  border: 1px solid gray;
 }
 
 .score {
   display: flex;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin-top: 0.3rem;
 }
 
 .score > p {
