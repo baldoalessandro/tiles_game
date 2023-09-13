@@ -193,6 +193,28 @@ describe("GameState", () => {
       });
     });
 
+    it("doesn't reset the current score when a move starts from an empty tile", () =>{
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.currentChain).toEqual(0);
+
+        select(24);
+        select(0);
+        select(21);
+        select(9);
+        select(24);
+        expect(state.currentChain).toEqual(4);
+        expect(state.highestChain).toEqual(4);
+        expect(state.tiles[24]).toEqual(0);
+        expect(state.selectedTile).toEqual(24);
+
+        select(11);
+        expect(state.currentChain).toEqual(4);
+        expect(state.highestChain).toEqual(4);
+        expect(state.selectedTile).toEqual(11);
+      });
+    });
+
     it("update the highest score when is beated", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();

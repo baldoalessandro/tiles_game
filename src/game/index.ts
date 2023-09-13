@@ -4,7 +4,7 @@ import {
   generateTiles,
   getLayersFromTile,
   isInvalidMove,
-  moveWasGood,
+  scoreMove,
   simplifyTiles,
 } from "./tiles";
 
@@ -61,17 +61,15 @@ export function createGameStateStore() {
 
       const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
 
-      if (moveWasGood(t1Curr, t1Next)) {
-        _setState((state) => ({
-          currentChain: state.currentChain + 1,
-          highestChain:
-            state.currentChain >= state.highestChain
-              ? state.highestChain + 1
-              : state.highestChain,
-        }));
-      } else {
-        _setState("currentChain", 0);
-      }
+      _setState((state) => {
+        const [currentChain, highestChain] = scoreMove(
+          t1Curr,
+          t1Next,
+          state.currentChain,
+          state.highestChain
+        );
+        return { currentChain, highestChain };
+      });
 
       _setState("tiles", t1Idx, t1Next);
       _setState("tiles", t2Idx, t2Next);

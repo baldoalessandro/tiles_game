@@ -134,11 +134,22 @@ export function isInvalidMove(
 }
 
 /**
- * Check if a move produced a match
+ * Compute the score of a move.
+ * To score a move we can use the old/new value of the first tile involved
+ * in the move. If the move started on an empty tile => keep the current score.
+ *
+ * @returns a tuple containing the updated [score, highestScore].
  */
-export function moveWasGood(
+export function scoreMove(
   oldTileValue: number,
-  newTileValue: number
-): boolean {
-  return oldTileValue !== newTileValue;
+  newTileValue: number,
+  currentScore: number,
+  highestScore: number
+): [number, number] {
+  if (oldTileValue === 0) {
+    return [currentScore, highestScore];
+  }
+  const s = oldTileValue !== newTileValue ? currentScore +1 : 0;
+
+  return [s, Math.max(highestScore, s)];
 }
