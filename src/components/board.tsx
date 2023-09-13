@@ -6,11 +6,10 @@ import { Tile } from "./tile";
 import { useTilesetTheme } from "../graphics";
 
 export const Board: Component = () => {
-
   let boardEl: HTMLDivElement | undefined;
 
   const { state } = useGameState();
-  const { screenBgColor, boardBgColors } = useTilesetTheme();
+  const { screenBgColor, boardBgColors, generateSprites } = useTilesetTheme();
 
   onMount(() => {
     boardEl?.style.setProperty("--bg-color", screenBgColor);
@@ -20,6 +19,9 @@ export const Board: Component = () => {
 
   return (
     <div ref={boardEl} class={cls.board}>
+      <svg xmlns="http://www.w3.org/2000/svg" class={cls.sprites}>
+        { generateSprites() }
+      </svg>
       <main class={cls.tiles}>
         <For each={state.tiles}>
           {(tile, idx) => (

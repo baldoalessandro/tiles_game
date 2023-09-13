@@ -18,7 +18,13 @@ export const Tile: Component<{
       classList={{ [cls.selected]: props.selected }}
       onClick={() => select(props.idx)}
     >
-      {layers.join("﹍")}
+      {layers.map((v, l) =>
+        v !== 0 ? (
+          <svg>
+            <use href={`#t_l${l}_v${v}`} />
+          </svg>
+        ) : null
+      )}
     </button>
   );
 };
