@@ -35,11 +35,11 @@ export const Board: Component = () => {
       </main>
       <aside class={cls.score}>
         <p>
-          <span>Current chain</span>
+          <span>Current</span>
           <output>{state.currentChain}</output>
         </p>
         <p>
-          <span>Highest Chain</span>
+          <span>Highest</span>
           <output>{state.highestChain}</output>
         </p>
       </aside>
