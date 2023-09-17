@@ -22,7 +22,10 @@ export interface GameState {
 /**
  * Define a reactive store to keep the game state and its mutation methods.
  */
-export function createGameStateStore() {
+export function createGameStateStore(
+  numberOfLayers = 3,
+  numberOfVariations = 4
+) {
   let bitmasks: number[];
   let bitsPerLayer: number;
 
@@ -31,7 +34,7 @@ export function createGameStateStore() {
       tiles,
       bitmasks: masks,
       bitsPerLayer: bpl,
-    } = generateTiles(NUMBER_OF_TILES, 3, 4);
+    } = generateTiles(NUMBER_OF_TILES, numberOfLayers, numberOfVariations);
     bitmasks = masks;
     bitsPerLayer = bpl;
     return {

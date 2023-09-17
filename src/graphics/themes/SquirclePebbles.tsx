@@ -3,14 +3,14 @@ import { TilesetTheme, genID } from "..";
 const theme: TilesetTheme = {
   name: "Squircle Pebbles",
   screenBgColor: "#d8d8d8",
-  boardBgColors: ["#eee", "#eee"],
+  boardBgColors: ["#eee", "#ececec"],
   numberOfLayers: 3,
-  numberOfVariations: 4,
+  numberOfVariations: 6,
   generateSprites() {
     console.log("generate sprites");
     
     // Colors used for the variants
-    const colors = ["#d62b72", "#24b576", "#4a6ed7", "#e6a80b"] as const;
+    const colors = ["#d62b72", "#24b576", "#6d4ad7", "#e6a80b", "#25cbcb", "#212dd8"] as const;
 
     // viewBox for the different layers
     const viewBoxes = [

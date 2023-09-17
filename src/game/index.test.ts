@@ -53,6 +53,21 @@ describe("GameState", () => {
     });
   });
 
+  it("init with a new game with given params", () => {
+    vi.mocked(generateTiles).mockReturnValueOnce({
+      tiles: Array.from({length: 30}, () => 0),
+      bitmasks: mockBitmaps,
+      bitsPerLayer: 4,
+    });
+
+    createRoot(() => {
+      const { state } = createGameStateStore(4,6);
+
+      expect(state.tiles).toHaveLength(NUMBER_OF_TILES);
+      expect(vi.mocked(generateTiles)).toHaveBeenCalledWith(NUMBER_OF_TILES, 4, 6);
+    });
+  });
+
   it("init with a new game on reset", () => {
     createRoot(() => {
       const { state, reset } = createGameStateStore();

@@ -3,7 +3,8 @@ import { DEFAULT_TILESET_THEME, TilesetThemeCtx } from "./graphics";
 import { Board } from "./components/board";
 
 export const Main = () => {
-  const gameStateStore = createGameStateStore();
+  const { numberOfLayers, numberOfVariations } = DEFAULT_TILESET_THEME;
+  const gameStateStore = createGameStateStore(numberOfLayers, numberOfVariations);
 
   return (
     <TilesetThemeCtx.Provider value={DEFAULT_TILESET_THEME}>
