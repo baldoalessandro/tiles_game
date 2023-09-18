@@ -2,6 +2,10 @@ import { expectTypeOf } from "vitest";
 import { assertPositiveInteger } from "./number";
 
 describe("assertPositiveInteger", () => {
+  /* eslint-disable-next-line vitest/expect-expect --
+   * The ESLint vitest plugin doesn't recognize `expectTypeOf` as an assertion
+   * for the moment :-/
+   **/
   it("creates a PositiveInteger when the argument is a positive integer", () => {
     const n: unknown = 42;
     assertPositiveInteger(n);

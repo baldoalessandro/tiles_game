@@ -1,0 +1,19 @@
+{
+  "extends": ["eslint:recommended", "prettier", "plugin:solid/typescript"],
+  "overrides": [
+    {
+      "files": ["**/*.test.{ts,tsx}"],
+      "plugins": ["vitest"],
+      "extends": ["plugin:vitest/recommended"],
+      "env": {
+        "vitest/env": true
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint/eslint-plugin", "solid"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {}
+}
