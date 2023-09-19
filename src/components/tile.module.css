@@ -1,20 +1,17 @@
 .tile {
   aspect-ratio: 1 / 1;
 
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-areas: "stack";
+  place-content: center;
 
   appearance: none;
   border: none;
 }
 
 .tile > * {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
+  grid-area: pile;
+
   width: 100%;
   height: 100%;
 }
