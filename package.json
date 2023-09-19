@@ -1,6 +1,6 @@
 {
   "name": "vite-template-solid",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "lint": "eslint --cache --fix --max-warnings 0 --ext .ts,.tsx",
     "format": "prettier --cache --write"
   },
-  "license": "MIT",
+  "license": " AGPL-3.0-or-later",
   "devDependencies": {
     "@solidjs/testing-library": "^0.7.1",
     "@testing-library/jest-dom": "^5.16.5",
