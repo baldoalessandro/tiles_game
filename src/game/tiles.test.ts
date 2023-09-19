@@ -37,7 +37,7 @@ describe("generateTiles", () => {
     // This implies that when XORing together all the tiles
     // we should get 0.
     const res = tiles.reduce((acc, t) => acc ^ t, 0);
-    expect(res).toEqual(0);
+    expect(res).toBe(0);
   });
 
   it("returns the bitmasks and info required to access each layer", () => {
@@ -46,7 +46,7 @@ describe("generateTiles", () => {
     const { bitmasks, bitsPerLayer } = generateTiles(
       2,
       nrOfLayer,
-      nrOfVariation
+      nrOfVariation,
     );
 
     expect(bitmasks).toHaveLength(nrOfLayer);
@@ -147,7 +147,6 @@ describe("getLayerFromTile", () => {
       const [input, expected] = c;
       const res = getLayersFromTile(input, bitmaks, bitsPerLayer);
       expect(res).toEqual(expected);
-
-    })
+    });
   });
 });

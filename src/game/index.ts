@@ -24,7 +24,7 @@ export interface GameState {
  */
 export function createGameStateStore(
   numberOfLayers = 3,
-  numberOfVariations = 4
+  numberOfVariations = 4,
 ) {
   let bitmasks: number[];
   let bitsPerLayer: number;
@@ -69,7 +69,7 @@ export function createGameStateStore(
           t1Curr,
           t1Next,
           state.currentChain,
-          state.highestChain
+          state.highestChain,
         );
         return { currentChain, highestChain };
       });

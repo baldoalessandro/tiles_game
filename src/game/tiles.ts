@@ -24,7 +24,7 @@ const BITS_PER_TILE = 32 as const;
 export function generateTiles(
   nrOfTiles: number,
   nrOfLayers: number,
-  nrOfVariationPerLayer: number
+  nrOfVariationPerLayer: number,
 ): { tiles: number[]; bitmasks: number[]; bitsPerLayer: number } {
   assertPositiveInteger(nrOfTiles);
   assertPositiveInteger(nrOfLayers);
@@ -42,8 +42,8 @@ export function generateTiles(
 
   const tiles = Array.from({ length: nrOfLayers }, (_, idx) =>
     createRandomLayer(nrOfVariationPerLayer, nrOfTiles).map(
-      (t) => t << (idx * bitsPerLayer)
-    )
+      (t) => t << (idx * bitsPerLayer),
+    ),
   ).reduce((acc, layer) => acc.map((v, idx) => (v |= layer[idx])));
 
   return { tiles, bitmasks, bitsPerLayer };
@@ -51,7 +51,7 @@ export function generateTiles(
 
 function ensureTileVariabilityCanFitStorage(
   nrOfLayers: PositiveInteger,
-  nrOfVariationPerLayer: PositiveInteger
+  nrOfVariationPerLayer: PositiveInteger,
 ) {
   const maxAvailableBitsPerLayer = Math.floor(BITS_PER_TILE / nrOfLayers);
   const maxRepresentableVariationPerLayer =
@@ -62,7 +62,7 @@ function ensureTileVariabilityCanFitStorage(
     throw new RangeError(
       `The combination of layers=${nrOfLayers} and variations=
       ${nrOfVariationPerLayer} exceeds the available bits for
-      each tile.`
+      each tile.`,
     );
   }
 }
@@ -73,11 +73,11 @@ function ensureTileVariabilityCanFitStorage(
  */
 export function generateBitmasks(
   nrOfBits: number,
-  nrOfShifts: number
+  nrOfShifts: number,
 ): number[] {
   return Array.from(
     { length: nrOfShifts },
-    (_, idx) => (Math.pow(2, nrOfBits) - 1) << (idx * nrOfBits)
+    (_, idx) => (Math.pow(2, nrOfBits) - 1) << (idx * nrOfBits),
   );
 }
 
@@ -100,7 +100,7 @@ export function createLayer(variations: number, len: number): number[] {
 export function simplifyTiles(
   t1: number,
   t2: number,
-  bitmasks: readonly number[]
+  bitmasks: readonly number[],
 ): readonly [number, number] {
   const commonLayerMask = ~bitmasks.reduce((acc, mask) => {
     const tl1 = t1 & mask;
@@ -117,7 +117,7 @@ export function simplifyTiles(
 export function getLayersFromTile(
   tile: number,
   bitmasks: readonly number[],
-  bitsPerLayer: number
+  bitsPerLayer: number,
 ) {
   return bitmasks.map((m, idx) => (m & tile) >> (idx * bitsPerLayer));
 }
@@ -128,7 +128,7 @@ export function getLayersFromTile(
 export function isInvalidMove(
   tile1Idx: number,
   tile2Idx: number,
-  tile2Value: number
+  tile2Value: number,
 ): boolean {
   return tile1Idx === tile2Idx || tile2Value === 0;
 }
@@ -144,12 +144,12 @@ export function scoreMove(
   oldTileValue: number,
   newTileValue: number,
   currentScore: number,
-  highestScore: number
+  highestScore: number,
 ): [number, number] {
   if (oldTileValue === 0) {
     return [currentScore, highestScore];
   }
-  const s = oldTileValue !== newTileValue ? currentScore +1 : 0;
+  const s = oldTileValue !== newTileValue ? currentScore + 1 : 0;
 
   return [s, Math.max(highestScore, s)];
 }

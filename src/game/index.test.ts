@@ -31,7 +31,7 @@ vi.mock("./tiles", async (original) => {
         // Check if the mocked version is good enough
         expect(nrOfTiles).toEqual(mockTiles.length);
         expect(nrOfLayers).toEqual(mockBitmaps.length);
-        expect(nrOfVariationPerLayer).toEqual(4);
+        expect(nrOfVariationPerLayer).toBe(4);
 
         return {
           tiles: [...mockTiles],
@@ -49,22 +49,26 @@ describe("GameState", () => {
 
       expect(state.tiles).toHaveLength(NUMBER_OF_TILES);
       expect(state.tiles).toEqual(mockTiles);
-      expect(state.selectedTile).toBe(undefined);
+      expect(state.selectedTile).toBeUndefined();
     });
   });
 
   it("init with a new game with given params", () => {
     vi.mocked(generateTiles).mockReturnValueOnce({
-      tiles: Array.from({length: 30}, () => 0),
+      tiles: Array.from({ length: 30 }, () => 0),
       bitmasks: mockBitmaps,
       bitsPerLayer: 4,
     });
 
     createRoot(() => {
-      const { state } = createGameStateStore(4,6);
+      const { state } = createGameStateStore(4, 6);
 
       expect(state.tiles).toHaveLength(NUMBER_OF_TILES);
-      expect(vi.mocked(generateTiles)).toHaveBeenCalledWith(NUMBER_OF_TILES, 4, 6);
+      expect(vi.mocked(generateTiles)).toHaveBeenCalledWith(
+        NUMBER_OF_TILES,
+        4,
+        6,
+      );
     });
   });
 
@@ -77,7 +81,7 @@ describe("GameState", () => {
 
       expect(state.tiles).toHaveLength(NUMBER_OF_TILES);
       expect(state.tiles).toEqual(mockTiles);
-      expect(state.selectedTile).toBe(undefined);
+      expect(state.selectedTile).toBeUndefined();
     });
   });
 
@@ -95,7 +99,7 @@ describe("GameState", () => {
         createRoot(() => {
           const { state, select } = createGameStateStore();
 
-          expect(state.selectedTile).toBe(undefined);
+          expect(state.selectedTile).toBeUndefined();
           select(tileIdx);
           expect(state.selectedTile).toEqual(tileIdx);
         });
@@ -111,39 +115,39 @@ describe("GameState", () => {
       });
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.selectedTile).toBe(undefined);
+        expect(state.selectedTile).toBeUndefined();
         select(1);
-        expect(state.selectedTile).toEqual(1);
+        expect(state.selectedTile).toBe(1);
 
-        expect(state.tiles[0]).toEqual(0);
+        expect(state.tiles[0]).toBe(0);
         select(0);
 
-        expect(state.selectedTile).toEqual(1);
+        expect(state.selectedTile).toBe(1);
       });
     });
 
-    describe(" with a currently selected tile", () => {
+    describe("with a currently selected tile", () => {
       it("updates the tiles when there is a match", () => {
         createRoot(() => {
           const { state, select } = createGameStateStore();
 
-          expect(state.selectedTile).toBe(undefined);
+          expect(state.selectedTile).toBeUndefined();
           select(0);
-          expect(state.selectedTile).toEqual(0);
-          expect(state.tiles[0]).toEqual(0b0_010_100_010);
+          expect(state.selectedTile).toBe(0);
+          expect(state.tiles[0]).toBe(0b0_010_100_010);
 
-          expect(state.tiles[2]).toEqual(0b0_011_100_011);
+          expect(state.tiles[2]).toBe(0b0_011_100_011);
           select(2);
-          expect(state.selectedTile).toEqual(2);
+          expect(state.selectedTile).toBe(2);
 
-          expect(state.tiles[0]).toEqual(0b0_010_000_010);
-          expect(state.tiles[2]).toEqual(0b0_011_000_011);
+          expect(state.tiles[0]).toBe(0b0_010_000_010);
+          expect(state.tiles[2]).toBe(0b0_011_000_011);
 
           const expectedChangedTilesIdxs = [0, 2];
           expect(
-            state.tiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i))
+            state.tiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i)),
           ).toEqual(
-            mockTiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i))
+            mockTiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i)),
           );
         });
       });
@@ -152,7 +156,7 @@ describe("GameState", () => {
         [0, 4, 11].forEach((t) => {
           createRoot(() => {
             const { state, select } = createGameStateStore();
-            expect(state.selectedTile).toBe(undefined);
+            expect(state.selectedTile).toBeUndefined();
             select(t);
             expect(state.selectedTile).toEqual(t);
 
@@ -170,87 +174,87 @@ describe("GameState", () => {
     it("increments current score on valid move", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toEqual(0);
+        expect(state.currentChain).toBe(0);
 
         select(0);
         select(2);
 
-        expect(state.currentChain).toEqual(1);
+        expect(state.currentChain).toBe(1);
       });
     });
 
     it("increments highest score on valid move", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toEqual(0);
+        expect(state.currentChain).toBe(0);
 
         select(0);
         select(2);
 
-        expect(state.currentChain).toEqual(1);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(1);
+        expect(state.highestChain).toBe(1);
       });
     });
 
     it("resets only the current score on error", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toEqual(0);
+        expect(state.currentChain).toBe(0);
 
         select(0);
         select(2);
-        expect(state.currentChain).toEqual(1);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(1);
+        expect(state.highestChain).toBe(1);
 
         select(0);
-        expect(state.currentChain).toEqual(0);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(0);
+        expect(state.highestChain).toBe(1);
       });
     });
 
-    it("doesn't reset the current score when a move starts from an empty tile", () =>{
+    it("doesn't reset the current score when a move starts from an empty tile", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toEqual(0);
+        expect(state.currentChain).toBe(0);
 
         select(24);
         select(0);
         select(21);
         select(9);
         select(24);
-        expect(state.currentChain).toEqual(4);
-        expect(state.highestChain).toEqual(4);
-        expect(state.tiles[24]).toEqual(0);
-        expect(state.selectedTile).toEqual(24);
+        expect(state.currentChain).toBe(4);
+        expect(state.highestChain).toBe(4);
+        expect(state.tiles[24]).toBe(0);
+        expect(state.selectedTile).toBe(24);
 
         select(11);
-        expect(state.currentChain).toEqual(4);
-        expect(state.highestChain).toEqual(4);
-        expect(state.selectedTile).toEqual(11);
+        expect(state.currentChain).toBe(4);
+        expect(state.highestChain).toBe(4);
+        expect(state.selectedTile).toBe(11);
       });
     });
 
     it("update the highest score when is beated", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toEqual(0);
+        expect(state.currentChain).toBe(0);
 
         select(0);
         select(2);
-        expect(state.currentChain).toEqual(1);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(1);
+        expect(state.highestChain).toBe(1);
 
         select(0);
-        expect(state.currentChain).toEqual(0);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(0);
+        expect(state.highestChain).toBe(1);
 
         select(6);
-        expect(state.currentChain).toEqual(1);
-        expect(state.highestChain).toEqual(1);
+        expect(state.currentChain).toBe(1);
+        expect(state.highestChain).toBe(1);
 
         select(3);
-        expect(state.currentChain).toEqual(2);
-        expect(state.highestChain).toEqual(2);
+        expect(state.currentChain).toBe(2);
+        expect(state.highestChain).toBe(2);
       });
     });
   });

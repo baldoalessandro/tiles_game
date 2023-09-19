@@ -43,7 +43,7 @@ export const DEFAULT_TILESET_THEME = SquirclePebbles;
  * The context used to expose the tileset graphics theme
  */
 export const TilesetThemeCtx = createContext<TilesetTheme>(
-  DEFAULT_TILESET_THEME
+  DEFAULT_TILESET_THEME,
 );
 
 /**

@@ -8,9 +8,16 @@ const theme: TilesetTheme = {
   numberOfVariations: 6,
   generateSprites() {
     console.log("generate sprites");
-    
+
     // Colors used for the variants
-    const colors = ["#d62b72", "#24b576", "#6d4ad7", "#e6a80b", "#25cbcb", "#212dd8"] as const;
+    const colors = [
+      "#d62b72",
+      "#24b576",
+      "#6d4ad7",
+      "#e6a80b",
+      "#25cbcb",
+      "#212dd8",
+    ] as const;
 
     // viewBox for the different layers
     const viewBoxes = [
@@ -22,8 +29,8 @@ const theme: TilesetTheme = {
     return Array.from(
       { length: theme.numberOfLayers * theme.numberOfVariations },
       (_, idx) => {
-        const l = Math.trunc((idx / theme.numberOfVariations));
-        const v = (idx % theme.numberOfVariations);
+        const l = Math.trunc(idx / theme.numberOfVariations);
+        const v = idx % theme.numberOfVariations;
 
         return (
           <symbol id={genID(l, v + 1)} viewBox={viewBoxes[l]}>
@@ -34,7 +41,7 @@ const theme: TilesetTheme = {
             />
           </symbol>
         );
-      }
+      },
     );
   },
 };
