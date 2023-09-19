@@ -1,5 +1,7 @@
 # Tiles Game
 
+[![CI status](https://github.com/baldoalessandro/tiles_game/workflows/CI/badge.svg)](https://github.com/baldoalessandro/tiles_games/actions)
+
 A clone of NYT Tiles game in SolidJS
 
 ## TODO
