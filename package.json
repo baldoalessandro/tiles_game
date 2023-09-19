@@ -1,7 +1,9 @@
 {
-  "name": "vite-template-solid",
+  "name": "tiles_games",
   "version": "0.1.0",
-  "description": "",
+  "description": "A clone of NYT Tiles game in SolidJS",
+  "repository": "github:baldoalessandro/tiles_game",
+  "private": true,
   "type": "module",
   "scripts": {
     "start": "vite",
