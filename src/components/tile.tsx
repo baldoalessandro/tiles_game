@@ -1,4 +1,4 @@
-import { Component } from "solid-js";
+import { Component, For, createMemo } from "solid-js";
 
 import cls from "./tile.module.css";
 import { useGameState } from "../game";
@@ -10,7 +10,7 @@ export const Tile: Component<{
 }> = (props) => {
   const { select, getLayers } = useGameState();
 
-  const layers = getLayers(props.tile);
+  const layers = createMemo(() => getLayers(props.tile));
 
   return (
     <button
@@ -18,13 +18,15 @@ export const Tile: Component<{
       classList={{ [cls.selected]: props.selected }}
       onClick={() => select(props.idx)}
     >
-      {layers.map((v, l) =>
-        v !== 0 ? (
-          <svg>
-            <use href={`#t_l${l}_v${v}`} />
-          </svg>
-        ) : null
-      )}
+      <For each={layers()}>
+        {(v, l) =>
+          v !== 0 ? (
+            <svg>
+              <use href={`#t_l${l()}_v${v}`} />
+            </svg>
+          ) : null
+        }
+      </For>
     </button>
   );
 };
