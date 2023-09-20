@@ -1,7 +1,7 @@
 import { Component, For, onMount } from "solid-js";
 
 import cls from "./board.module.css";
-import { useGameState } from "../game";
+import { useGameState } from "../game/state";
 import { Tile } from "./tile";
 import { useTilesetTheme } from "../graphics";
 

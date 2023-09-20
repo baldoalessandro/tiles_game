@@ -1,46 +1,12 @@
 import { vi } from "vitest";
 import { createRoot } from "solid-js";
-import { NUMBER_OF_TILES, createGameStateStore } from "./";
-import { generateTiles } from "./tiles";
 
-// Mock tiles generation
-const { mockTiles, mockBitmaps } = vi.hoisted(() => ({
-  mockTiles: [
-    0b0_010_100_010, 0b0_001_011_011, 0b0_011_100_011, 0b0_011_011_001,
-    0b0_011_100_011, 0b0_001_011_100, 0b0_100_011_010, 0b0_001_011_100,
-    0b0_001_001_001, 0b0_010_010_001, 0b0_001_001_100, 0b0_011_010_001,
-    0b0_100_100_010, 0b0_100_001_100, 0b0_011_010_010, 0b0_011_001_001,
-    0b0_001_001_011, 0b0_100_010_011, 0b0_001_010_010, 0b0_010_011_001,
-    0b0_010_011_100, 0b0_001_010_010, 0b0_100_010_011, 0b0_010_100_011,
-    0b0_010_100_001, 0b0_100_001_001, 0b0_011_011_011, 0b0_010_010_010,
-    0b0_011_001_010, 0b0_010_001_100,
-  ],
-  mockBitmaps: [0b0_000_000_111, 0b0_000_111_000, 0b0_111_000_000],
-}));
+import { NUMBER_OF_TILES, createGameStateStore } from "./state";
 
-vi.mock("./tiles", async (original) => {
-  const mod: typeof import("./tiles") = await original();
-  return {
-    ...mod,
-    generateTiles: vi
-      .fn<
-        Parameters<typeof mod.generateTiles>,
-        ReturnType<typeof mod.generateTiles>
-      >()
-      .mockImplementation((nrOfTiles, nrOfLayers, nrOfVariationPerLayer) => {
-        // Check if the mocked version is good enough
-        expect(nrOfTiles).toEqual(mockTiles.length);
-        expect(nrOfLayers).toEqual(mockBitmaps.length);
-        expect(nrOfVariationPerLayer).toBe(4);
+import { mockTiles, mockBitmaps } from "./__fixtures";
 
-        return {
-          tiles: [...mockTiles],
-          bitmasks: [...mockBitmaps],
-          bitsPerLayer: 3,
-        };
-      }),
-  };
-});
+vi.mock("./generator");
+import { generateTiles } from "./generator";
 
 describe("GameState", () => {
   it("init with a new game", () => {

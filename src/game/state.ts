@@ -1,12 +1,13 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
+
+import { generateTiles } from "./generator";
 import {
-  generateTiles,
   getLayersFromTile,
   isInvalidMove,
   scoreMove,
   simplifyTiles,
-} from "./tiles";
+} from "./logic";
 
 // The board is made of 5 x 6 tiles
 // NOTE this could be changed but it must be an even number

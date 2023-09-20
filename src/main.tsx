@@ -1,4 +1,4 @@
-import { GameStateCtx, createGameStateStore } from "./game";
+import { GameStateCtx, createGameStateStore } from "./game/state";
 import { DEFAULT_TILESET_THEME, TilesetThemeCtx } from "./graphics";
 import { Board } from "./components/board";
 

@@ -1,7 +1,7 @@
 import { Component, For, createMemo } from "solid-js";
 
 import cls from "./tile.module.css";
-import { useGameState } from "../game";
+import { useGameState } from "../game/state";
 
 export const Tile: Component<{
   tile: number;
