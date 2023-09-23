@@ -6,9 +6,11 @@ A clone of NYT Tiles game in SolidJS
 
 ## TODO
 
-- [ ] selected empty tile border color
+- [x] selected empty tile border color
 - [ ] game end screen
+- [ ] reset
 - [ ] tile animations
+- [ ] favicon + icon
 - [ ] offline usage and installation
 - [ ] haptic feedback
 - [ ] selected tile border animation

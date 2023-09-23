@@ -8,16 +8,18 @@ export const Tile: Component<{
   idx: number;
   selected: boolean;
 }> = (props) => {
-  const { select, getLayers } = useGameState();
+  const { select, getLayers, isTileEmpty } = useGameState();
 
   const layers = createMemo(() => getLayers(props.tile));
+  const empty = createMemo(() => isTileEmpty(props.tile));
 
   return (
     <button
       class={cls.tile}
-      classList={{ [cls.selected]: props.selected }}
+      classList={{ [cls.selected]: props.selected, [cls.empty]: empty() }}
       onClick={() => select(props.idx)}
     >
+      <span class="visually-hidden">Tile {props.idx + 1}</span>
       <For each={layers()}>
         {(v, l) =>
           v !== 0 ? (

@@ -26,3 +26,7 @@
 .selected {
   border: 2px red solid;
 }
+
+.selected.empty {
+  border: 2px green solid;
+}

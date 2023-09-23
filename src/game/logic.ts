@@ -57,3 +57,7 @@ export function scoreMove(
 
   return [s, Math.max(highestScore, s)];
 }
+
+export function isTileEmpty(tile: number): boolean {
+  return tile === 0;
+}

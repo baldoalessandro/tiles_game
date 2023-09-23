@@ -7,6 +7,7 @@ import {
   isInvalidMove,
   scoreMove,
   simplifyTiles,
+  isTileEmpty,
 } from "./logic";
 
 // The board is made of 5 x 6 tiles
@@ -86,7 +87,7 @@ export function createGameStateStore(
     return getLayersFromTile(tile, bitmasks, bitsPerLayer);
   }
 
-  return { state, reset, select, getLayers };
+  return { state, reset, select, getLayers, isTileEmpty };
 }
 
 /**
