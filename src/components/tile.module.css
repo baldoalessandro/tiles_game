@@ -10,7 +10,7 @@
 }
 
 .tile > * {
-  grid-area: pile;
+  grid-area: stack;
 
   width: 100%;
   height: 100%;
