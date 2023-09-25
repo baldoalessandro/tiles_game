@@ -1,5 +1,5 @@
 .boardWrapper {
-  /* THEME */
+  /* BOARD THEME */
   --bg-color: silver;
   --tile-bg-1-color: gray;
   --tile-bg-2-color: whitesmoke;
@@ -40,8 +40,6 @@
 .score {
   display: flex;
   justify-content: space-between;
-
-  font-family: "Fira Mono", monospace;
 }
 
 .score > p {

@@ -1,3 +1,10 @@
+:root {
+  /* MAIN THEME */
+  --bg-color: silver;
+  --txt-color: black;
+  --accent-color: #92f3c6;
+}
+
 * {
   /* Disable double tap zoom on iOS */
   touch-action: manipulation;
@@ -15,6 +22,9 @@ body {
   margin: 0;
 
   font-size: 1em;
+  font-family: "Fira Mono", monospace;
+
+  background: var(--bg-color);
 }
 
 #root {

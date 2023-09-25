@@ -1,0 +1,36 @@
+.won {
+  height: 100%;
+  height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5em;
+}
+
+.cup {
+  font-size: 3em;
+}
+
+.newGame {
+  margin-top: 1.5em;
+
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  border-radius: 3px;
+  padding: 12px 24px;
+  border: 0;
+  color: var(--txt-color);
+  background: var(--accent-color);
+  line-height: 1.15;
+  font-size: 1.6em;
+}
+.newGame:hover {
+  transition: all 0.1s ease;
+  box-shadow:
+    0 0 0 0 #fff,
+    0 0 0 3px var(--accent-color);
+}

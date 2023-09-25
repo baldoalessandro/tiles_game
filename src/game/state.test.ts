@@ -16,6 +16,7 @@ describe("GameState", () => {
       expect(state.tiles).toHaveLength(NUMBER_OF_TILES);
       expect(state.tiles).toEqual(mockTiles);
       expect(state.selectedTile).toBeUndefined();
+      expect(state.ended).toBe(false);
     });
   });
 
@@ -200,7 +201,7 @@ describe("GameState", () => {
       });
     });
 
-    it("update the highest score when is beated", () => {
+    it("updates the highest score when is beated", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
         expect(state.currentChain).toBe(0);
@@ -221,6 +222,28 @@ describe("GameState", () => {
         select(3);
         expect(state.currentChain).toBe(2);
         expect(state.highestChain).toBe(2);
+      });
+    });
+
+    it("detects the end of a game", () => {
+      vi.mocked(generateTiles).mockReturnValueOnce({
+        tiles: [
+          0b0_001_000_000,
+          0b0_001_000_000,
+          ...Array.from({ length: NUMBER_OF_TILES - 2 }, () => 0),
+        ],
+        bitmasks: mockBitmaps,
+        bitsPerLayer: 3,
+      });
+
+      createRoot(() => {
+        const { state, select } = createGameStateStore();
+        expect(state.ended).toBe(false);
+
+        select(0);
+        select(1);
+
+        expect(state.ended).toBe(true);
       });
     });
   });

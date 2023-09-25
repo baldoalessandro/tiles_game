@@ -15,6 +15,7 @@ import {
 export const NUMBER_OF_TILES = 30 as const;
 
 export interface GameState {
+  ended: boolean;
   tiles: number[];
   selectedTile?: number;
   currentChain: number;
@@ -40,6 +41,7 @@ export function createGameStateStore(
     bitmasks = masks;
     bitsPerLayer = bpl;
     return {
+      ended: false,
       tiles,
       selectedTile: undefined,
       currentChain: 0,
@@ -78,9 +80,14 @@ export function createGameStateStore(
 
       _setState("tiles", t1Idx, t1Next);
       _setState("tiles", t2Idx, t2Next);
+      _setState("ended", checkGameEnded());
     }
 
     _setState({ selectedTile: tileIdx });
+  }
+
+  function checkGameEnded() {
+    return state.tiles.every(isTileEmpty);
   }
 
   function getLayers(tile: number) {

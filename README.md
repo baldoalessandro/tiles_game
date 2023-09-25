@@ -7,7 +7,8 @@ A clone of NYT Tiles game in SolidJS
 ## TODO
 
 - [x] selected empty tile border color
-- [ ] game end screen
+- [x] make it works on iOS14
+- [x] game end screen
 - [ ] reset
 - [ ] tile animations
 - [ ] favicon + icon
