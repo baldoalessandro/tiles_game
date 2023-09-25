@@ -1,18 +1,52 @@
+* {
+  /* Disable double tap zoom on iOS */
+  touch-action: manipulation;
+}
+
 html,
 body {
   width: 100vw;
+  min-width: 320px;
   height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 
   padding: 0;
   margin: 0;
+
+  font-size: 1em;
+}
+
+#root {
+  height: 100%;
+}
+
+@supports not (height: 100dvh) {
+  html,
+  body {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Responsive scale from 10px@320px to 24px@1920px */
+@media (min-width: 320px) {
+  :root {
+    font-size: calc(0.625rem + ((1vw - 3.2px) * 0.875));
+    min-height: 0vw;
+  }
+}
+@media (min-width: 1920px) {
+  :root {
+    font-size: 24px;
+  }
 }
 
 .visually-hidden {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
-  height: 1px;
+  width: 1px !important;
+  height: 1px !important;
   overflow: hidden;
   position: absolute;
   white-space: nowrap;
-  width: 1px;
 }

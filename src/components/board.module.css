@@ -10,16 +10,20 @@
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
-  width: 100vw;
-  min-width: 320px;
+  height: 100%;
+  width: 100%;
   margin: 0;
 }
 
 .board {
   flex: 1;
-  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
   max-width: 480px;
+  height: 100%;
+
+  box-sizing: border-box;
   padding: 0.7rem;
   padding-top: 2rem;
 }
@@ -36,7 +40,6 @@
 .score {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.3rem;
 
   font-family: "Fira Mono", monospace;
 }
@@ -55,12 +58,13 @@
   text-transform: lowercase;
   font-variant: small-caps;
   font-weight: 700;
+  font-size: 1.4em;
 }
 
 .score > p > output {
   width: fit-content;
   display: block;
 
-  font-size: 3rem;
+  font-size: 2.8em;
   font-weight: 800;
 }
