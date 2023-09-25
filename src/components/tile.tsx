@@ -23,7 +23,17 @@ export const Tile: Component<{
       <For each={layers()}>
         {(v, l) =>
           v !== 0 ? (
-            <svg>
+            <svg
+              // The following props are required to correctly render
+              // inline SVG on iOS14.
+              // It is important that the width and height values
+              // are set to a value > 150px (the default height value for
+              // inline SVGs on Safari for iOS14) and big enough to accomodate
+              // the widest possible tile.
+              width="512"
+              height="512"
+              preserveAspectRatio="xMidYMid slice"
+            >
               <use href={`#t_l${l()}_v${v}`} />
             </svg>
           ) : null
