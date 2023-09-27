@@ -13,7 +13,9 @@
     "test": "vitest",
     "prepare": "husky install",
     "lint": "eslint --cache --fix --max-warnings 0 --ext .ts,.tsx",
-    "format": "prettier --cache --write"
+    "format": "prettier --cache --write",
+    "generate-pwa-assets": "npx @vite-pwa/assets-generator --preset minimal assets/logo/logo.svg",
+    "generate-svg-favicon": "npx svgo assets/logo/logo.svg -o public/favicon.svg"
   },
   "license": " AGPL-3.0-or-later",
   "devDependencies": {
@@ -33,6 +35,7 @@
     "solid-devtools": "^0.27.3",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
+    "vite-plugin-pwa": "^0.16.5",
     "vite-plugin-solid": "^2.7.0",
     "vitest": "^0.32.2"
   },

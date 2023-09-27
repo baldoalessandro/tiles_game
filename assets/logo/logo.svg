@@ -1,0 +1,8 @@
+<svg width="200" height="200" viewBox="-4 -4 136 136" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 0 64 C 0 0, 0 0, 64 0S 128 0, 128 64, 128 128 64 128, 0 128, 0 64"
+    transform="rotate(0,64,64)translate(0,0)" fill="#e6a80b" />
+  <path d="M 0 64 C 0 0, 0 0, 64 0S 128 0, 128 64, 128 128 64 128, 0 128, 0 64"
+    transform="rotate(0,64,64)translate(24.448,39.5568)scale(0.618)" fill="#6d4ad7" />
+  <path d="M 0 64 C 0 0, 0 0, 64 0S 128 0, 128 64, 128 128 64 128, 0 128, 0 64"
+    transform="rotate(0,64,64)translate(39.5568,64.003)scale(0.381924)" fill="#d62b72" />
+</svg>
