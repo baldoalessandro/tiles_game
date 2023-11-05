@@ -2,9 +2,19 @@
 
 [![CI status](https://github.com/baldoalessandro/tiles_game/workflows/CI/badge.svg)](https://github.com/baldoalessandro/tiles_games/actions)
 
-A clone of NYT Tiles game in SolidJS
+A clone of NYT Tiles game in SolidJS.
+
+## Why
+
+I needed a small project to experiment with SolidJS and its ecosystem . Things can be either experimental or artificially over-engineered for learning purpose.
+
+## Reference
+
+For the real game go to https://www.nytimes.com/puzzles/tiles and consider get a subscription there, is definitely worth the money!
 
 ## TODO
+
+This is an incomplete and un-ordered list of activities for the project:
 
 - [x] selected empty tile border color
 - [x] make it works on iOS14
