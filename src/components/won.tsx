@@ -12,7 +12,8 @@ export const Won: Component = () => {
         🏆
       </span>
       <h1>You won!</h1>
-      <p>Longest chain: {state.highestChain}</p>
+      <p>Number of chains: {state.score.errors + 1}</p>
+      <p>Longest chain: {state.score.highestRunLen}</p>
       <button onClick={() => reset()} class={cls.newGame}>
         New game
       </button>

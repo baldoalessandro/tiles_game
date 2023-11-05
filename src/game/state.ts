@@ -14,12 +14,16 @@ import {
 // NOTE this could be changed but it must be an even number
 export const NUMBER_OF_TILES = 30 as const;
 
+export interface GameScore {
+  errors: number;
+  currentRunLen: number;
+  highestRunLen: number;
+}
 export interface GameState {
   ended: boolean;
   tiles: number[];
   selectedTile?: number;
-  currentChain: number;
-  highestChain: number;
+  score: GameScore;
 }
 
 /**
@@ -44,8 +48,11 @@ export function createGameStateStore(
       ended: false,
       tiles,
       selectedTile: undefined,
-      currentChain: 0,
-      highestChain: 0,
+      score: {
+        errors: 0,
+        currentRunLen: 0,
+        highestRunLen: 0,
+      },
     };
   }
 
@@ -69,13 +76,8 @@ export function createGameStateStore(
       const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
 
       _setState((state) => {
-        const [currentChain, highestChain] = scoreMove(
-          t1Curr,
-          t1Next,
-          state.currentChain,
-          state.highestChain,
-        );
-        return { currentChain, highestChain };
+        const score = scoreMove(t1Curr, t1Next, state.score);
+        return { score };
       });
 
       _setState("tiles", t1Idx, t1Next);

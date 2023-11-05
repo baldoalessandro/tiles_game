@@ -9,10 +9,15 @@ A clone of NYT Tiles game in SolidJS
 - [x] selected empty tile border color
 - [x] make it works on iOS14
 - [x] game end screen
-- [ ] reset
+- [x] favicon + icon
+- [x] offline usage and installation
+- [ ] perfect score
+- [ ] refactor screen handling
+- [ ] add main screen
+- [ ] error feedback
+- [ ] empty tile instruction
+- [ ] reset button in game
 - [ ] tile animations
-- [ ] favicon + icon
-- [ ] offline usage and installation
 - [ ] haptic feedback
 - [ ] selected tile border animation
 - [ ] more themes

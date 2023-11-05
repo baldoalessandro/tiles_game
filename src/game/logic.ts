@@ -1,3 +1,5 @@
+import { GameScore } from "./state";
+
 /**
  * Given two tiles it simplifies them removing the common layers
  */
@@ -47,15 +49,19 @@ export function isInvalidMove(
 export function scoreMove(
   oldTileValue: number,
   newTileValue: number,
-  currentScore: number,
-  highestScore: number,
-): [number, number] {
+  score: GameScore,
+): GameScore {
   if (oldTileValue === 0) {
-    return [currentScore, highestScore];
+    return score;
   }
-  const s = oldTileValue !== newTileValue ? currentScore + 1 : 0;
+  const goodMove = oldTileValue !== newTileValue;
+  const s = goodMove ? score.currentRunLen + 1 : 0;
 
-  return [s, Math.max(highestScore, s)];
+  return {
+    currentRunLen: s,
+    highestRunLen: Math.max(score.highestRunLen, s),
+    errors: score.errors + (goodMove ? 0 : 1),
+  };
 }
 
 export function isTileEmpty(tile: number): boolean {

@@ -141,62 +141,66 @@ describe("GameState", () => {
     it("increments current score on valid move", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toBe(0);
+        expect(state.score.currentRunLen).toBe(0);
+        expect(state.score.errors).toBe(0);
 
         select(0);
         select(2);
 
-        expect(state.currentChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(1);
+        expect(state.score.errors).toBe(0);
       });
     });
 
     it("increments highest score on valid move", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toBe(0);
+        expect(state.score.currentRunLen).toBe(0);
 
         select(0);
         select(2);
 
-        expect(state.currentChain).toBe(1);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(1);
+        expect(state.score.highestRunLen).toBe(1);
+        expect(state.score.errors).toBe(0);
       });
     });
 
-    it("resets only the current score on error", () => {
+    it("resets only the current score on error and starts a new chain", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toBe(0);
+        expect(state.score.currentRunLen).toBe(0);
 
         select(0);
         select(2);
-        expect(state.currentChain).toBe(1);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(1);
+        expect(state.score.highestRunLen).toBe(1);
 
         select(0);
-        expect(state.currentChain).toBe(0);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(0);
+        expect(state.score.highestRunLen).toBe(1);
+        expect(state.score.errors).toBe(1);
       });
     });
 
     it("doesn't reset the current score when a move starts from an empty tile", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toBe(0);
+        expect(state.score.currentRunLen).toBe(0);
 
         select(24);
         select(0);
         select(21);
         select(9);
         select(24);
-        expect(state.currentChain).toBe(4);
-        expect(state.highestChain).toBe(4);
+        expect(state.score.currentRunLen).toBe(4);
+        expect(state.score.highestRunLen).toBe(4);
         expect(state.tiles[24]).toBe(0);
         expect(state.selectedTile).toBe(24);
 
         select(11);
-        expect(state.currentChain).toBe(4);
-        expect(state.highestChain).toBe(4);
+        expect(state.score.currentRunLen).toBe(4);
+        expect(state.score.highestRunLen).toBe(4);
         expect(state.selectedTile).toBe(11);
       });
     });
@@ -204,24 +208,24 @@ describe("GameState", () => {
     it("updates the highest score when is beated", () => {
       createRoot(() => {
         const { state, select } = createGameStateStore();
-        expect(state.currentChain).toBe(0);
+        expect(state.score.currentRunLen).toBe(0);
 
         select(0);
         select(2);
-        expect(state.currentChain).toBe(1);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(1);
+        expect(state.score.highestRunLen).toBe(1);
 
         select(0);
-        expect(state.currentChain).toBe(0);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(0);
+        expect(state.score.highestRunLen).toBe(1);
 
         select(6);
-        expect(state.currentChain).toBe(1);
-        expect(state.highestChain).toBe(1);
+        expect(state.score.currentRunLen).toBe(1);
+        expect(state.score.highestRunLen).toBe(1);
 
         select(3);
-        expect(state.currentChain).toBe(2);
-        expect(state.highestChain).toBe(2);
+        expect(state.score.currentRunLen).toBe(2);
+        expect(state.score.highestRunLen).toBe(2);
       });
     });
 

@@ -1,4 +1,5 @@
-import { simplifyTiles, getLayersFromTile } from "./logic";
+import { simplifyTiles, getLayersFromTile, scoreMove } from "./logic";
+import { GameScore } from "./state";
 
 describe("simplfyTiles", () => {
   const bitmaks = [0b000_000_111, 0b000_111_000, 0b111_000_000] as const;
@@ -34,6 +35,78 @@ describe("getLayerFromTile", () => {
       const [input, expected] = c;
       const res = getLayersFromTile(input, bitmaks, bitsPerLayer);
       expect(res).toEqual(expected);
+    });
+  });
+});
+
+describe("scoreMove", () => {
+  test("good moves", () => {
+    const scores: [GameScore, GameScore][] = [
+      [
+        { errors: 0, currentRunLen: 0, highestRunLen: 0 },
+        { errors: 0, currentRunLen: 1, highestRunLen: 1 },
+      ],
+      [
+        { errors: 0, currentRunLen: 42, highestRunLen: 72 },
+        { errors: 0, currentRunLen: 43, highestRunLen: 72 },
+      ],
+      [
+        { errors: 0, currentRunLen: 42, highestRunLen: 42 },
+        { errors: 0, currentRunLen: 43, highestRunLen: 43 },
+      ],
+      [
+        { errors: 1, currentRunLen: 42, highestRunLen: 42 },
+        { errors: 1, currentRunLen: 43, highestRunLen: 43 },
+      ],
+    ];
+
+    scores.forEach(([input, output]) => {
+      const res = scoreMove(42, 32, input);
+      expect(res).toEqual(output);
+    });
+  });
+
+  test("bad moves", () => {
+    const scores: [GameScore, GameScore][] = [
+      [
+        { errors: 0, currentRunLen: 0, highestRunLen: 0 },
+        { errors: 1, currentRunLen: 0, highestRunLen: 0 },
+      ],
+      [
+        { errors: 0, currentRunLen: 42, highestRunLen: 72 },
+        { errors: 1, currentRunLen: 0, highestRunLen: 72 },
+      ],
+      [
+        { errors: 1, currentRunLen: 42, highestRunLen: 42 },
+        { errors: 2, currentRunLen: 0, highestRunLen: 42 },
+      ],
+    ];
+
+    scores.forEach(([input, output]) => {
+      const res = scoreMove(42, 42, input);
+      expect(res).toEqual(output);
+    });
+  });
+
+  test("moves from empty tiles", () => {
+    const scores: [GameScore, GameScore][] = [
+      [
+        { errors: 0, currentRunLen: 0, highestRunLen: 12 },
+        { errors: 0, currentRunLen: 0, highestRunLen: 12 },
+      ],
+      [
+        { errors: 1, currentRunLen: 42, highestRunLen: 42 },
+        { errors: 1, currentRunLen: 42, highestRunLen: 42 },
+      ],
+      [
+        { errors: 1, currentRunLen: 42, highestRunLen: 72 },
+        { errors: 1, currentRunLen: 42, highestRunLen: 72 },
+      ],
+    ];
+
+    scores.forEach(([input, output]) => {
+      const res = scoreMove(0, 0, input);
+      expect(res).toEqual(output);
     });
   });
 });
