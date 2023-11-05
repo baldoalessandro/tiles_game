@@ -1,10 +1,14 @@
-import { render, screen } from "@solidjs/testing-library";
+import { cleanup, render, screen } from "@solidjs/testing-library";
 
 import { Tile } from "./tile";
 
 vi.mock("../game/generator");
 
 describe("<Tile> component", () => {
+  afterEach(async () => {
+    await cleanup();
+  });
+
   it("renders", () => {
     const props = {
       tile: 0b0_010_001_001,
