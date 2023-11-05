@@ -11,7 +11,7 @@ A clone of NYT Tiles game in SolidJS
 - [x] game end screen
 - [x] favicon + icon
 - [x] offline usage and installation
-- [ ] perfect score
+- [x] perfect score
 - [ ] refactor screen handling
 - [ ] add main screen
 - [ ] error feedback

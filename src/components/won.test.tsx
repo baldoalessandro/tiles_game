@@ -64,4 +64,17 @@ describe("Won screen", () => {
 
     expect(ctxValue.reset).toHaveBeenCalled();
   });
+
+  it("tells the users if they had a perfect game", () => {
+    render(() => (
+      <GameStateCtx.Provider value={ctxValue}>
+        <Won />
+      </GameStateCtx.Provider>
+    ));
+
+    expect(screen.getByText(/You won/)).toBeInTheDocument();
+    expect(screen.getByText(/perfect/i)).toBeInTheDocument();
+    expect(screen.getByText("Number of chains: 1")).toBeInTheDocument();
+    expect(screen.getByText("Longest chain: 18")).toBeInTheDocument();
+  });
 });
