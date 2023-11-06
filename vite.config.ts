@@ -6,12 +6,17 @@ import solidPlugin from "vite-plugin-solid";
 import { VitePWA } from "vite-plugin-pwa";
 // import devtools from 'solid-devtools/vite';
 
+import { version } from "./package.json";
+
 export default defineConfig(({ mode }) => {
   // Load the .env file
   // WARN: this will load all env vars and not only the ones prefixed with VITE_
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    define: {
+      __APP_VERSION__: JSON.stringify(version),
+    },
     plugins: [
       /*
     Uncomment the following line to enable solid-devtools.

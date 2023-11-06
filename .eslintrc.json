@@ -2,6 +2,12 @@
   "extends": ["eslint:recommended", "prettier", "plugin:solid/typescript"],
   "overrides": [
     {
+      "files": ["src/**/*"],
+      "globals": {
+        "__APP_VERSION__": true
+      }
+    },
+    {
       "files": ["**/*.test.{ts,tsx}"],
       "plugins": ["vitest"],
       "extends": ["plugin:vitest/recommended"],

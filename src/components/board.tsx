@@ -44,6 +44,7 @@ export const Board: Component = () => {
             <output>{state.score.highestRunLen}</output>
           </p>
         </aside>
+        <footer class={cls.version}>v {__APP_VERSION__}</footer>
       </div>
     </div>
   );
