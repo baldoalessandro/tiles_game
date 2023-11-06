@@ -75,9 +75,14 @@ export default defineConfig(({ mode }) => {
       environment: "jsdom",
       globals: true,
       transformMode: { web: [/\.[jt]sx?$/] },
-      setupFiles: ["node_modules/@testing-library/jest-dom/extend-expect.js"],
-      // otherwise, solid would be loaded twice:
-      deps: { registerNodeLoader: true },
+      setupFiles: ["node_modules/@testing-library/jest-dom/vitest"],
+      deps: {
+        optimizer: {
+          web: {
+            exclude: ["solid-js"],
+          },
+        },
+      },
       // if you have few tests, try commenting one
       // or both out to improve performance:
       threads: false,
