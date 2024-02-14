@@ -41,22 +41,22 @@ describe("getLayerFromTile", () => {
 
 describe("scoreMove", () => {
   test("good moves", () => {
-    const scores: [GameScore, GameScore][] = [
+    const scores: [GameScore, [GameScore, boolean]][] = [
       [
         { errors: 0, currentRunLen: 0, highestRunLen: 0 },
-        { errors: 0, currentRunLen: 1, highestRunLen: 1 },
+        [{ errors: 0, currentRunLen: 1, highestRunLen: 1 }, true],
       ],
       [
         { errors: 0, currentRunLen: 42, highestRunLen: 72 },
-        { errors: 0, currentRunLen: 43, highestRunLen: 72 },
+        [{ errors: 0, currentRunLen: 43, highestRunLen: 72 }, true],
       ],
       [
         { errors: 0, currentRunLen: 42, highestRunLen: 42 },
-        { errors: 0, currentRunLen: 43, highestRunLen: 43 },
+        [{ errors: 0, currentRunLen: 43, highestRunLen: 43 }, true],
       ],
       [
         { errors: 1, currentRunLen: 42, highestRunLen: 42 },
-        { errors: 1, currentRunLen: 43, highestRunLen: 43 },
+        [{ errors: 1, currentRunLen: 43, highestRunLen: 43 }, true],
       ],
     ];
 
@@ -67,18 +67,18 @@ describe("scoreMove", () => {
   });
 
   test("bad moves", () => {
-    const scores: [GameScore, GameScore][] = [
+    const scores: [GameScore, [GameScore, boolean]][] = [
       [
         { errors: 0, currentRunLen: 0, highestRunLen: 0 },
-        { errors: 1, currentRunLen: 0, highestRunLen: 0 },
+        [{ errors: 1, currentRunLen: 0, highestRunLen: 0 }, false],
       ],
       [
         { errors: 0, currentRunLen: 42, highestRunLen: 72 },
-        { errors: 1, currentRunLen: 0, highestRunLen: 72 },
+        [{ errors: 1, currentRunLen: 0, highestRunLen: 72 }, false],
       ],
       [
         { errors: 1, currentRunLen: 42, highestRunLen: 42 },
-        { errors: 2, currentRunLen: 0, highestRunLen: 42 },
+        [{ errors: 2, currentRunLen: 0, highestRunLen: 42 }, false],
       ],
     ];
 
@@ -89,18 +89,18 @@ describe("scoreMove", () => {
   });
 
   test("moves from empty tiles", () => {
-    const scores: [GameScore, GameScore][] = [
+    const scores: [GameScore, [GameScore, boolean]][] = [
       [
         { errors: 0, currentRunLen: 0, highestRunLen: 12 },
-        { errors: 0, currentRunLen: 0, highestRunLen: 12 },
+        [{ errors: 0, currentRunLen: 0, highestRunLen: 12 }, true],
       ],
       [
         { errors: 1, currentRunLen: 42, highestRunLen: 42 },
-        { errors: 1, currentRunLen: 42, highestRunLen: 42 },
+        [{ errors: 1, currentRunLen: 42, highestRunLen: 42 }, true],
       ],
       [
         { errors: 1, currentRunLen: 42, highestRunLen: 72 },
-        { errors: 1, currentRunLen: 42, highestRunLen: 72 },
+        [{ errors: 1, currentRunLen: 42, highestRunLen: 72 }, true],
       ],
     ];
 

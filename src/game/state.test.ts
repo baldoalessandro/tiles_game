@@ -99,6 +99,7 @@ describe("GameState", () => {
           const { state, select } = createGameStateStore();
 
           expect(state.selectedTile).toBeUndefined();
+          expect(state.lastErrorTile).toBeUndefined();
           select(0);
           expect(state.selectedTile).toBe(0);
           expect(state.tiles[0]).toBe(0b0_010_100_010);
@@ -116,6 +117,28 @@ describe("GameState", () => {
           ).toEqual(
             mockTiles.filter((_, i) => !expectedChangedTilesIdxs.includes(i)),
           );
+          expect(state.lastErrorTile).toBeUndefined();
+        });
+      });
+
+      it("updates the lastErrorTile when there isn't a match", () => {
+        createRoot(() => {
+          const { state, select } = createGameStateStore();
+
+          expect(state.selectedTile).toBeUndefined();
+          expect(state.lastErrorTile).toBeUndefined();
+          select(0);
+          expect(state.selectedTile).toBe(0);
+          expect(state.tiles[0]).toBe(0b0_010_100_010);
+
+          expect(state.tiles[5]).toBe(0b0_001_011_100);
+          select(5);
+          expect(state.selectedTile).toBe(5);
+
+          expect(state.tiles[0]).toBe(0b0_010_100_010);
+          expect(state.tiles[5]).toBe(0b0_001_011_100);
+
+          expect(state.lastErrorTile).toBe(5);
         });
       });
 

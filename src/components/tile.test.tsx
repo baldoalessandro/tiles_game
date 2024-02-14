@@ -1,7 +1,6 @@
 import { cleanup, render, screen } from "@solidjs/testing-library";
 
 import { Tile } from "./tile";
-import { createSignal } from "solid-js";
 
 vi.mock("../game/generator");
 
@@ -15,6 +14,7 @@ describe("<Tile> component", () => {
       tile: 0b0_010_001_001,
       idx: 0,
       selected: false,
+      error: false,
     };
     render(() => <Tile {...props} />);
 
@@ -26,6 +26,7 @@ describe("<Tile> component", () => {
       tile: 0b0_010_001_001,
       idx: 0,
       selected: true,
+      error: false,
     };
     render(() => <Tile {...props} />);
 
@@ -35,19 +36,63 @@ describe("<Tile> component", () => {
     expect($btn.className).not.toContain("empty");
   });
 
+  it("renders a tile with error", () => {
+    const props = {
+      tile: 0b0_010_001_001,
+      idx: 0,
+      selected: true,
+      error: true,
+    };
+    render(() => <Tile {...props} />);
+
+    const $btn = screen.getByRole("button");
+    expect($btn).toBeInTheDocument();
+    expect($btn.className).toContain("selected");
+    expect($btn.className).not.toContain("empty");
+    expect(screen.getByText(/no match/)).toBeInTheDocument();
+  });
+
+  it("renders a tile with error only if selected", () => {
+    const props = {
+      tile: 0b0_010_001_001,
+      idx: 0,
+      selected: false,
+      error: true,
+    };
+    render(() => <Tile {...props} />);
+
+    const $btn = screen.getByRole("button");
+    expect($btn).toBeInTheDocument();
+    expect($btn.className).not.toContain("selected");
+    expect($btn.className).not.toContain("empty");
+    expect(screen.queryByText(/no match/)).not.toBeInTheDocument();
+  });
+
   it("renders an empty tile", () => {
-    const [selected, setSelcted] = createSignal(false);
+    const props = {
+      tile: 0b0_000_000_000,
+      idx: 0,
+      selected: false,
+      error: true,
+    };
+    render(() => <Tile {...props} />);
 
-    render(() => <Tile idx={0} tile={0b0_000_000_000} selected={selected()} />);
-
-    let $btn = screen.getByRole("button", { name: "Tile 1" });
+    const $btn = screen.getByRole("button", { name: "Tile 1" });
     expect($btn).toBeInTheDocument();
     expect($btn.className).not.toContain("selected");
     expect($btn.className).toContain("empty");
+  });
 
-    setSelcted(true);
+  it("renders a selected empty tile", () => {
+    const props = {
+      tile: 0b0_000_000_000,
+      idx: 0,
+      selected: true,
+      error: true,
+    };
+    render(() => <Tile {...props} />);
 
-    $btn = screen.getByRole("button");
+    const $btn = screen.getByRole("button");
     expect($btn).toBeInTheDocument();
     expect($btn.className).toContain("selected");
     expect($btn.className).toContain("empty");

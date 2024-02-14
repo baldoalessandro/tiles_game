@@ -1,4 +1,4 @@
-import { Component, For, onMount } from "solid-js";
+import { Component, For, createEffect, onMount } from "solid-js";
 
 import cls from "./board.module.css";
 import { useGameState } from "../game/state";
@@ -10,6 +10,13 @@ export const Board: Component = () => {
 
   const { state } = useGameState();
   const { screenBgColor, boardBgColors, generateSprites } = useTilesetTheme();
+
+  // Give haptic feedback on error
+  createEffect(() => {
+    if (state.lastErrorTile !== undefined && !!window.navigator.vibrate) {
+      window.navigator.vibrate([30, 30]);
+    }
+  });
 
   onMount(() => {
     boardWrapperEl?.style.setProperty("--bg-color", screenBgColor);
@@ -29,6 +36,7 @@ export const Board: Component = () => {
               <Tile
                 tile={tile}
                 idx={idx()}
+                error={state.lastErrorTile === idx()}
                 selected={state.selectedTile === idx()}
               />
             )}

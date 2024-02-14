@@ -23,6 +23,7 @@ export interface GameState {
   ended: boolean;
   tiles: number[];
   selectedTile?: number;
+  lastErrorTile?: number;
   score: GameScore;
 }
 
@@ -48,6 +49,7 @@ export function createGameStateStore(
       ended: false,
       tiles,
       selectedTile: undefined,
+      lastErrorTile: undefined,
       score: {
         errors: 0,
         currentRunLen: 0,
@@ -75,11 +77,9 @@ export function createGameStateStore(
 
       const [t1Next, t2Next] = simplifyTiles(t1Curr, t2Curr, bitmasks);
 
-      _setState((state) => {
-        const score = scoreMove(t1Curr, t1Next, state.score);
-        return { score };
-      });
-
+      const [score, wasGoodMove] = scoreMove(t1Curr, t1Next, state.score);
+      _setState("lastErrorTile", wasGoodMove ? undefined : t2Idx);
+      _setState("score", score);
       _setState("tiles", t1Idx, t1Next);
       _setState("tiles", t2Idx, t2Next);
       _setState("ended", checkGameEnded());

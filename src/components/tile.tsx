@@ -9,6 +9,7 @@ export const Tile: Component<{
   tile: number;
   idx: number;
   selected: boolean;
+  error: boolean;
 }> = (props) => {
   const { select, getLayers, isTileEmpty } = useGameState();
 
@@ -44,6 +45,9 @@ export const Tile: Component<{
       <div class={cls.toast}>
         <Show when={props.selected && empty()}>
           <Toast text="go anywhere" />
+        </Show>
+        <Show when={props.selected && props.error}>
+          <Toast text="no match" />
         </Show>
       </div>
     </button>
