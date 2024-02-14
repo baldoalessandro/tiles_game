@@ -43,8 +43,6 @@ export function isInvalidMove(
  * Compute the score of a move.
  * To score a move we can use the old/new value of the first tile involved
  * in the move. If the move started on an empty tile => keep the current score.
- *
- * @returns a tuple containing the updated [score, highestScore].
  */
 export function scoreMove(
   oldTileValue: number,

@@ -6,7 +6,7 @@ A clone of NYT Tiles game in SolidJS.
 
 ## Why
 
-I needed a small project to experiment with SolidJS and its ecosystem . Things can be either experimental or artificially over-engineered for learning purpose.
+I needed a small project to experiment with SolidJS and its ecosystem. Things can be either experimental or artificially over-engineered for learning purpose.
 
 ## Reference
 
