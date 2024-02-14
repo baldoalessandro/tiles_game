@@ -1,0 +1,19 @@
+.toast {
+  display: block;
+  width: 100%;
+
+  margin: 0;
+  padding: 0.2rem;
+  box-sizing: border-box;
+
+  font-size: min(0.8rem, 98%);
+  line-height: 2;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-weight: 700;
+  text-align: center;
+
+  border-radius: 0.3rem;
+  background: rgba(48, 48, 48, 0.92);
+  color: white;
+}

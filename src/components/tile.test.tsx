@@ -1,6 +1,7 @@
 import { cleanup, render, screen } from "@solidjs/testing-library";
 
 import { Tile } from "./tile";
+import { createSignal } from "solid-js";
 
 vi.mock("../game/generator");
 
@@ -35,16 +36,21 @@ describe("<Tile> component", () => {
   });
 
   it("renders an empty tile", () => {
-    const props = {
-      tile: 0b0_000_000_000,
-      idx: 0,
-      selected: true,
-    };
-    render(() => <Tile {...props} />);
+    const [selected, setSelcted] = createSignal(false);
 
-    const $btn = screen.getByRole("button", { name: "Tile 1" });
+    render(() => <Tile idx={0} tile={0b0_000_000_000} selected={selected()} />);
+
+    let $btn = screen.getByRole("button", { name: "Tile 1" });
+    expect($btn).toBeInTheDocument();
+    expect($btn.className).not.toContain("selected");
+    expect($btn.className).toContain("empty");
+
+    setSelcted(true);
+
+    $btn = screen.getByRole("button");
     expect($btn).toBeInTheDocument();
     expect($btn.className).toContain("selected");
     expect($btn.className).toContain("empty");
+    expect(screen.getByText(/go anywhere/)).toBeInTheDocument();
   });
 });

@@ -1,7 +1,9 @@
-import { Component, For, createMemo } from "solid-js";
+import { Component, For, Show, createMemo } from "solid-js";
 
 import cls from "./tile.module.css";
 import { useGameState } from "../game/state";
+
+import { Toast } from "./toast";
 
 export const Tile: Component<{
   tile: number;
@@ -39,6 +41,11 @@ export const Tile: Component<{
           ) : null
         }
       </For>
+      <div class={cls.toast}>
+        <Show when={props.selected && empty()}>
+          <Toast text="go anywhere" />
+        </Show>
+      </div>
     </button>
   );
 };

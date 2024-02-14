@@ -22,13 +22,13 @@ This is an incomplete and un-ordered list of activities for the project:
 - [x] favicon + icon
 - [x] offline usage and installation
 - [x] perfect score
+- [x] empty tile instruction
+- [ ] tile animations
+- [ ] error feedback
+- [ ] haptic error feedback
 - [ ] refactor screen handling
 - [ ] add main screen
-- [ ] error feedback
-- [ ] empty tile instruction
 - [ ] reset button in game
-- [ ] tile animations
-- [ ] haptic feedback
 - [ ] selected tile border animation
 - [ ] more themes
 

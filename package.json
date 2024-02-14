@@ -41,6 +41,7 @@
     "vitest": "^0.34.6"
   },
   "dependencies": {
+    "@motionone/solid": "^10.16.4",
     "array-shuffle": "^3.0.0",
     "solid-js": "^1.7.6"
   },
