@@ -41,9 +41,9 @@
     "vitest": "0.32.4"
   },
   "dependencies": {
-    "@motionone/solid": "^10.16.4",
     "array-shuffle": "^3.0.0",
-    "solid-js": "^1.7.6"
+    "solid-js": "^1.7.6",
+    "solid-motionone": "^1.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": "npm run lint",

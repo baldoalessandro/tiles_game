@@ -1,5 +1,5 @@
 import { Component, Show, createSignal } from "solid-js";
-import { Motion, Presence } from "@motionone/solid";
+import { Motion, Presence } from "solid-motionone";
 
 import cls from "./toast.module.css";
 

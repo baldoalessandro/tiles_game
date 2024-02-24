@@ -1229,17 +1229,6 @@
     "@motionone/utils" "^10.17.0"
     tslib "^2.3.1"
 
-"@motionone/solid@^10.16.4":
-  version "10.16.4"
-  resolved "https://registry.yarnpkg.com/@motionone/solid/-/solid-10.16.4.tgz#c8c4f22a21b9f2ff00984279e036d370aa892299"
-  integrity sha512-xS3vDhWgTB7xdSYnOTs69Ai09WWjuG6bbz2E+NjP7DswD3X2jLZNNTFmf8GTGhj7UeFHiZgtERIjvpGgZTuEiQ==
-  dependencies:
-    "@motionone/dom" "^10.16.4"
-    "@motionone/utils" "^10.16.3"
-    "@solid-primitives/props" "^3.1.1"
-    "@solid-primitives/refs" "^1.0.0"
-    "@solid-primitives/transition-group" "^1.0.0"
-
 "@motionone/types@^10.17.0":
   version "10.17.0"
   resolved "https://registry.yarnpkg.com/@motionone/types/-/types-10.17.0.tgz#179571ce98851bac78e19a1c3974767227f08ba3"
@@ -1410,14 +1399,14 @@
   resolved "https://registry.yarnpkg.com/@solid-primitives/platform/-/platform-0.1.1.tgz#a90a84b2325d1b42b9d87b4ce5be60abbbfbd6c5"
   integrity sha512-Ln7dzHFjNDpjmhnKiMAUWBjObRZ01FQtj4ABkSmE51VjLI0i9JW54lbZhJImYjpCyoBjtxBEGWsCgYi9JyRXrA==
 
-"@solid-primitives/props@^3.1.1":
+"@solid-primitives/props@^3.1.8":
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/@solid-primitives/props/-/props-3.1.9.tgz#e43a58f308652aa5d52bf0464df474fc95dc749f"
   integrity sha512-2MvjgxF0rwMR8BGq2onN9KhxF66bQhtFWdrEkO/qjy8I4wr/OQrhwgM9RP89/gtzOVPXUYKSxt2lkCk+JQpNJA==
   dependencies:
     "@solid-primitives/utils" "^6.2.2"
 
-"@solid-primitives/refs@^1.0.0", "@solid-primitives/refs@^1.0.5":
+"@solid-primitives/refs@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@solid-primitives/refs/-/refs-1.0.6.tgz#636b4a792243e00e3899ed948be00857d1b16666"
   integrity sha512-ruh4YdVMxThEVnvqbpeLXKojW442vpFU8q7dSKtElGOTa31aKOAkRb9BTbdaTwVjN4BEq79fiiYIXozJNl4dSw==
@@ -1468,7 +1457,7 @@
     "@solid-primitives/rootless" "^1.4.2"
     "@solid-primitives/utils" "^6.2.1"
 
-"@solid-primitives/transition-group@^1.0.0":
+"@solid-primitives/transition-group@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@solid-primitives/transition-group/-/transition-group-1.0.4.tgz#cd0819504adf3f03ec3ef03627c25b44802b94a8"
   integrity sha512-9nPg6HYAmEi7riH0C2bSCVw/2asgGSzHuN0yFFYyK9JgmXqJgyeyA+6thZbj7GgUQMRhtBxpH8yG7N2nEh8ttA==
@@ -4156,6 +4145,18 @@ solid-js@^1.7.6:
     csstype "^3.1.0"
     seroval "^1.0.3"
     seroval-plugins "^1.0.3"
+
+solid-motionone@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/solid-motionone/-/solid-motionone-1.0.0.tgz#eef399352274ebbc5bd0b6d850159f718600dfae"
+  integrity sha512-iHk/al5B3Yv9G7R8V90WHJNe5TjwR0QiQHTifLZZHj1rdegm6taqdBKGYfpTeND8ejnamJ6FK+UxHCRl/jYy1w==
+  dependencies:
+    "@motionone/dom" "^10.16.4"
+    "@motionone/utils" "^10.16.3"
+    "@solid-primitives/props" "^3.1.8"
+    "@solid-primitives/refs" "^1.0.5"
+    "@solid-primitives/transition-group" "^1.0.3"
+    csstype "^3.1.0"
 
 solid-refresh@^0.6.3:
   version "0.6.3"
