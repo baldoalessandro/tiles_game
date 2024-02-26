@@ -1,6 +1,6 @@
 {
   "name": "tiles_games",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A clone of NYT Tiles game in SolidJS",
   "repository": "github:baldoalessandro/tiles_game",
   "private": true,

@@ -23,9 +23,9 @@ This is an incomplete and un-ordered list of activities for the project:
 - [x] offline usage and installation
 - [x] perfect score
 - [x] empty tile instruction
-- [ ] tile animations
-- [ ] error feedback
-- [ ] haptic error feedback
+- [x] error feedback
+- [x] haptic error feedback
+- [x] tile animations
 - [ ] refactor screen handling
 - [ ] add main screen
 - [ ] reset button in game

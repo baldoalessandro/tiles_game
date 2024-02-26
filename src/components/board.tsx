@@ -1,4 +1,4 @@
-import { Component, For, createEffect, onMount } from "solid-js";
+import { Component, Index, createEffect, onMount } from "solid-js";
 
 import cls from "./board.module.css";
 import { useGameState } from "../game/state";
@@ -31,16 +31,16 @@ export const Board: Component = () => {
           {generateSprites()}
         </svg>
         <main class={cls.tiles}>
-          <For each={state.tiles}>
+          <Index each={state.tiles}>
             {(tile, idx) => (
               <Tile
-                tile={tile}
-                idx={idx()}
-                error={state.lastErrorTile === idx()}
-                selected={state.selectedTile === idx()}
+                tile={tile()}
+                idx={idx}
+                error={state.lastErrorTile === idx}
+                selected={state.selectedTile === idx}
               />
             )}
-          </For>
+          </Index>
         </main>
         <aside class={cls.score}>
           <p>
