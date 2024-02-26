@@ -26,12 +26,67 @@
   background-color: var(--tile-bg-2-color, whitesmoke);
 }
 
+/* Border like animation */
+.selected,
+.empty {
+  --default-tile-borders-color: red;
+  background: linear-gradient(
+      90deg,
+      var(--tile-borders-color, --default-tile-borders-color) 50%,
+      transparent 50%
+    ),
+    linear-gradient(
+      90deg,
+      var(--tile-borders-color, --default-tile-borders-color) 50%,
+      transparent 50%
+    ),
+    linear-gradient(
+      0deg,
+      var(--tile-borders-color, --default-tile-borders-color) 50%,
+      transparent 50%
+    ),
+    linear-gradient(
+      0deg,
+      var(--tile-borders-color, --default-tile-borders-color) 50%,
+      transparent 50%
+    );
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size:
+    23% 4%,
+    23% 4%,
+    4% 23%,
+    4% 23%;
+  background-position:
+    left top,
+    right -15.5% bottom,
+    left bottom,
+    right top -15.5%;
+
+  animation: walking-borders 8s linear infinite;
+}
+@keyframes walking-borders {
+  0% {
+    background-position:
+      left top,
+      right -15% bottom,
+      left bottom,
+      right top -15%;
+  }
+  100% {
+    background-position:
+      left 237.5% top,
+      right 223.5% bottom,
+      left bottom 237.5%,
+      right top 223.5%;
+  }
+}
+
 .selected {
-  border: 2px red solid;
+  --tile-borders-color: var(--tile-borders-color-selected, red);
 }
 
 .selected.empty {
-  border: 2px green solid;
+  --tile-borders-color: var(--tile-borders-color-empty, green);
 }
 
 .toast {

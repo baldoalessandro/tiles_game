@@ -9,7 +9,8 @@ export const Board: Component = () => {
   let boardWrapperEl: HTMLDivElement | undefined;
 
   const { state } = useGameState();
-  const { screenBgColor, boardBgColors, generateSprites } = useTilesetTheme();
+  const { screenBgColor, boardBgColors, tileBordersColors, generateSprites } =
+    useTilesetTheme();
 
   // Give haptic feedback on error
   createEffect(() => {
@@ -22,6 +23,14 @@ export const Board: Component = () => {
     boardWrapperEl?.style.setProperty("--bg-color", screenBgColor);
     boardWrapperEl?.style.setProperty("--tile-bg-1-color", boardBgColors[0]);
     boardWrapperEl?.style.setProperty("--tile-bg-2-color", boardBgColors[1]);
+    boardWrapperEl?.style.setProperty(
+      "--tile-borders-color-selected",
+      tileBordersColors.selected,
+    );
+    boardWrapperEl?.style.setProperty(
+      "--tile-borders-color-empty",
+      tileBordersColors.empty,
+    );
   });
 
   return (

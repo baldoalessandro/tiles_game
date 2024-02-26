@@ -15,6 +15,14 @@ export interface TilesetTheme {
    * The colors used for the checkeboard background.
    */
   readonly boardBgColors: [string, string];
+
+  /**
+   * The colors to use for a tile borders in differt states
+   */
+  readonly tileBordersColors: {
+    selected: string;
+    empty: string;
+  };
   /**
    * The number of stacked layer composing each tile.
    */

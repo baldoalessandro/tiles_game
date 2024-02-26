@@ -26,10 +26,11 @@ This is an incomplete and un-ordered list of activities for the project:
 - [x] error feedback
 - [x] haptic error feedback
 - [x] tile animations
+- [x] selected tile border animation
+- [x] empty tile border animation
 - [ ] refactor screen handling
 - [ ] add main screen
 - [ ] reset button in game
-- [ ] selected tile border animation
 - [ ] more themes
 
 ## License

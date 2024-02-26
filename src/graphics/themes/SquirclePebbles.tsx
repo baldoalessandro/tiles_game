@@ -4,6 +4,10 @@ const theme: TilesetTheme = {
   name: "Squircle Pebbles",
   screenBgColor: "#d8d8d8",
   boardBgColors: ["#eee", "#ececec"],
+  tileBordersColors: {
+    selected: "red",
+    empty: "green",
+  },
   numberOfLayers: 3,
   numberOfVariations: 6,
   generateSprites() {
